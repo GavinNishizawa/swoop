@@ -1,8 +1,8 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Draw from './Draw.js';
 import { make as TestComponent } from './TestComponent.bs';
+import Draw from './Draw.js';
 
 class App extends React.Component {
   componentDidMount(){
