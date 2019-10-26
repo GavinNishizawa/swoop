@@ -27,7 +27,7 @@ class App extends React.Component {
     let points = [
       new Point(125, 125),
       new Point(175, 125),
-      new Point(125, 170),
+      new Point(145, 170),
     ];
     draw(points);
   }
