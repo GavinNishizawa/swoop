@@ -1,6 +1,8 @@
 
+let mystr = "testing";
+
 [@react.component]
-let make = () =>
+let default = () =>
     <div>
-        {ReasonReact.string("testing")}
+        {mystr -> ReasonReact.string}
     </div>;
