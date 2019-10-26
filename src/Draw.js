@@ -1,8 +1,8 @@
 
 import { Point } from './Point';
 
-export function draw(points){
-  var canvas = document.getElementById('canvas');
+export function draw(ctx, width, height, points){
+  // var canvas = document.getElementById('canvas');
   let currentPoints = points.map((p) => new Point(p.x, p.y));
 
   let deltas = [];
@@ -14,25 +14,25 @@ export function draw(points){
   }
 
 
-  if(canvas.getContext){
-    var ctx = canvas.getContext('2d');
-    var interval = setInterval(() => {
-      for(let i = 0; i < currentPoints.length; i++) {
-        currentPoints[i] = new Point(
-          currentPoints[currentPoints.length - 1].x + deltas[i].x,
-          currentPoints[currentPoints.length - 1].y + deltas[i].y,
-        )
-      }
-      //console.log(currentPoints);
-      let newBouncePoints = bounce(currentPoints, canvas.width, canvas.height)
-      //console.log(newBouncePoints);
-      if(newBouncePoints.length == 0){
-        clearInterval(interval);
-      }else{
-        drawLoop(ctx, newBouncePoints)
-      }
-    }, 150);
-  }
+  // if(canvas.getContext){
+    // var ctx = canvas.getContext('2d');
+  let interval = setInterval(() => {
+    for(let i = 0; i < currentPoints.length; i++) {
+      currentPoints[i] = new Point(
+        currentPoints[currentPoints.length - 1].x + deltas[i].x,
+        currentPoints[currentPoints.length - 1].y + deltas[i].y,
+      )
+    }
+    //console.log(currentPoints);
+    let newBouncePoints = bounce(currentPoints, width, height)
+    //console.log(newBouncePoints);
+    if(newBouncePoints.length === 0){
+      clearInterval(interval);
+    }else{
+      drawLoop(ctx, newBouncePoints)
+    }
+  }, 150);
+  // }
 }
 
 function reflectPointX(cur, width){

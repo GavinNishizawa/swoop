@@ -17,24 +17,27 @@ class App extends React.Component {
       .map(v => new Point(v, v));
 
     for(let i = 0; i < 2*points.length; i++) {
-      let a = this.pen.getFragment(i, 3, points);
-      // console.log(a);
+      this.pen.getFragment(i, 3, points);
     }
     this.onStart = e => this.pen.onStart(e);
     this.onMove = e => this.pen.onMove(e);
     this.onStop = () => {
-      let {xs, ys} = this.pen;
-      let len = xs.length < ys.length ? xs.length : ys.length;
-      let pts = [];
-      for(let i = 0; i < len; i++) {
-        pts.push(new Point(xs[i], ys[i]));
+      let canvasEl = document.getElementById('canvas');
+      if(canvasEl.getContext){
+        let ctx = canvasEl.getContext('2d');
+        let canvasPos = canvasEl.getBoundingClientRect();
+        let {xs, ys} = this.pen;
+        let len = xs.length < ys.length ? xs.length : ys.length;
+        let pts = [];
+        for(let i = 0; i < len; i++) {
+          pts.push(new Point(xs[i] - canvasPos.x, ys[i] - canvasPos.y));
+        }
+        draw(ctx, canvasEl.width, canvasEl.height, pts);
       }
-      draw(pts);
       // console.log(this.pen);
     };
   }
-
-  componentDidMount(){
+  componentDidMount() {
     // let points = [
     //   new Point(100, 10),
     //   new Point(200, 20),
