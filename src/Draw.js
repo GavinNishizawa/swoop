@@ -32,21 +32,17 @@ export function draw(points){
       }else{
         drawLoop(ctx, newBouncePoints)
       }
-    }, 50);
+    }, 500);
   }
 }
 
 function reflectPointX(cur, width){
-  var rawQuotient = cur.x/width;
-  var remainder = cur.x % width;
-  var quotient = rawQuotient * width - remainder;
-  console.log(rawQuotient);
-  console.log(remainder);
-  console.log(quotient);
-  if(Math.trunc(quotient % 2) === 0){
-      return new Point(remainder, cur.y);
+  var xvalue = cur.x % width;
+  var quotient = Math.trunc(cur.x/width);
+  if(quotient % 2 === 0){
+      return new Point(xvalue, cur.y);
   }else{
-    return new Point(-remainder, cur.y);
+    return new Point(width - xvalue, cur.y);
   }
 
 }
@@ -79,6 +75,5 @@ export function drawLoop(ctx, points){
   for (var i = 0; i < points.length; i++) {
     ctx.lineTo(points[i].x, points[i].y);
   }
-  ctx.closePath();
   ctx.stroke();
 }
