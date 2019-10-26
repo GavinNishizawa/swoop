@@ -11,3 +11,19 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.ball-orange {
+  color: #F36E3E;
+}
+
+.ball-pink {
+  color: #EE5E74;
+}
+
+.ball-green {
+  color: #98CA4E;
+}
+
+.ball-blue {
+  color: #1FA8C3;
+}
