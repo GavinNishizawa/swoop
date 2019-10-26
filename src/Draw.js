@@ -14,6 +14,18 @@ export function draw(points){
   }
 }
 
+export function bounce(points, width, height){
+  if(points.x > width){
+      
+  }
+  if(points.x < 0){
+
+  }
+  if(points.y < 0 || points.y > height){
+    clearInterval();
+  }
+}
+
 export function drawLoop(ctx, cur, points){
   ctx.clearRect(0,0,1500,600);
   ctx.beginPath();
