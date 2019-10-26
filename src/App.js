@@ -1,7 +1,7 @@
 import React from 'react';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
-import { make as TestComponent } from './TestComponent.bs';
+import TestComponent from './TestComponent.bs';
 import Draw from './Draw.js';
 
 class App extends React.Component {

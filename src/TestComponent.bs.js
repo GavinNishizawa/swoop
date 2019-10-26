@@ -2,14 +2,18 @@
 
 import * as React from "react";
 
-function TestComponent(Props) {
-  return React.createElement("div", undefined, "testing");
+var mystr = "testing";
+
+function TestComponent$default(Props) {
+  return React.createElement("div", undefined, mystr);
 }
 
-var make = TestComponent;
+var $$default = TestComponent$default;
 
 export {
-  make ,
+  mystr ,
+  $$default ,
+  $$default as default,
   
 }
 /* react Not a pure module */
