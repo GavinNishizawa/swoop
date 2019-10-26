@@ -2,9 +2,9 @@
 
 export function draw(){
   var canvas = document.getElementById('canvas');
-  let cur = new Point(200, 200);
-  var xs = [300, 200, 100, 200, 270];
-  var ys = [200, 300, 200, 100, 230];
+  let cur = new Point(125, 125);
+  var xs = [125, 170,125];
+  var ys = [125,125,170];
 
   let subtractX = val => val - cur.x;
   xs = xs.map(subtractX);
@@ -14,24 +14,22 @@ export function draw(){
 
   if(canvas.getContext){
     var ctx = canvas.getContext('2d');
-
-    ctx.beginPath();
-    ctx.moveTo(cur.x, cur.y);
-    for(let i = 0; i< 10; i++) {
-      drawLoop(ctx, cur, xs, ys);
-    }
-    ctx.closePath();
-    ctx.stroke();
+    setInterval(() => drawLoop(ctx, cur, xs, ys), 500);
   }
 }
 
 export function drawLoop(ctx, cur, dx, dy){
+  ctx.clearRect(0,0,1500,600);
+  ctx.beginPath();
+  ctx.moveTo(cur.x, cur.y);
   for (var i = 0; i < dx.length; i++) {
     cur.x += dx[i];
     cur.y += dy[i];
     console.log(cur);
     ctx.lineTo(cur.x, cur.y);
   }
+  ctx.closePath();
+  ctx.stroke();
 }
 
 class Point {
