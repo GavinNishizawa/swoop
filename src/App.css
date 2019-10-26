@@ -3,13 +3,17 @@
 }
 
 .App-logo {
-  height: 40vmin;
+    margin-top: 5%;
+  height: 15vmin;
 }
 
 canvas {
     background: #cdcdcd;
-    margin-top: 7%;
+    width:1200px;
+    height:500px;
+    margin-top: 5%;
 }​
+
 
 .App-header {
   background-color: #282c34;
