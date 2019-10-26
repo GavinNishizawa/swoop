@@ -23,7 +23,15 @@ export class Pen {
   }
 
   getFragment(counter, length, xs, ys) {
+    let xlength = xs.length;
+    let ylength = ys.length;
+    let returnArray = [];
+    if counter > xlength{
+        counter = counter % xlength;
+    }
+    for (let i = counter; i < xlength; i++){
+        returnArray[].push;
+    }
     return [];
   }
 }
-
