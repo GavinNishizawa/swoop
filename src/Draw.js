@@ -1,37 +1,28 @@
 
+import { Point } from './Point';
 
-export function draw(xs, ys){
+export function draw(points){
   var canvas = document.getElementById('canvas');
-  let cur = new Point(xs[0], ys[0]);
+  let cur = points[0];
 
-  let subtractX = val => val - cur.x;
-  xs = xs.map(subtractX);
-
-  let subtractY = val => val - cur.y;
-  ys = ys.map(subtractY);
+  let subtract = val => new Point(val.x - cur.x, val.y - cur.y);
+  points = points.map(subtract);
 
   if(canvas.getContext){
     var ctx = canvas.getContext('2d');
-    setInterval(() => drawLoop(ctx, cur, xs, ys), 500);
+    setInterval(() => drawLoop(ctx, cur, points), 500);
   }
 }
 
-export function drawLoop(ctx, cur, dx, dy){
+export function drawLoop(ctx, cur, points){
   ctx.clearRect(0,0,1500,600);
   ctx.beginPath();
   ctx.moveTo(cur.x, cur.y);
-  for (var i = 0; i < dx.length; i++) {
-    cur.x += dx[i];
-    cur.y += dy[i];
+  for (var i = 0; i < points.length; i++) {
+    cur.x += points[i].x;
+    cur.y += points[i].y;
     ctx.lineTo(cur.x, cur.y);
   }
   ctx.closePath();
   ctx.stroke();
-}
-
-class Point {
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
-  }
 }
