@@ -12,6 +12,11 @@ class App extends React.Component {
     super(props);
 
     this.pen = new Pen();
+    let testXs = [10,20,30,40,50,60,70,80,90,100];
+    let testYs = [10,20,30,40,50,60,70,80,90,100];
+    for(let i = 0; i < 10; i++) {
+      this.pen.getFragment(i, 3, testXs, testYs);
+    }
     this.onStart = e => this.pen.onStart(e);
     this.onMove = e => this.pen.onMove(e);
   }

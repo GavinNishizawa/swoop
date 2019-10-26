@@ -21,5 +21,9 @@ export class Pen {
     // this.xs.push(x);
     // this.ys.push(y);
   }
+
+  getFragment(counter, length, xs, ys) {
+    return [];
+  }
 }
 
