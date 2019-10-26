@@ -5,22 +5,39 @@ export function draw(points){
   var canvas = document.getElementById('canvas');
   let cur = points[0];
 
-  let subtract = val => new Point(val.x - cur.x, val.y - cur.y);
-  points = points.map(subtract);
+  let deltas = [];
+  for(let i = 1; i < points.length; i++) {
+    deltas.push( new Point(
+      points[i].x - points[i-1].x,
+      points[i].y - points[i-1].y,
+    ));
+  }
 
   if(canvas.getContext){
     var ctx = canvas.getContext('2d');
-    setInterval(() => drawLoop(ctx, cur, points), 500);
+    setInterval(() => drawLoop(ctx, cur, deltas), 500);
   }
 }
 
-export function drawLoop(ctx, cur, points){
+export function bounce(points, width, height){
+  if(points.x > width){
+
+  }
+  if(points.x < 0){
+
+  }
+  if(points.y < 0 || points.y > height){
+    clearInterval();
+  }
+}
+
+export function drawLoop(ctx, cur, deltas){
   ctx.clearRect(0,0,1500,600);
   ctx.beginPath();
   ctx.moveTo(cur.x, cur.y);
-  for (var i = 0; i < points.length; i++) {
-    cur.x += points[i].x;
-    cur.y += points[i].y;
+  for (var i = 0; i < deltas.length; i++) {
+    cur.x += deltas[i].x;
+    cur.y += deltas[i].y;
     ctx.lineTo(cur.x, cur.y);
   }
   ctx.closePath();
