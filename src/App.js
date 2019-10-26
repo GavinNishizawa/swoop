@@ -6,7 +6,7 @@ import {draw, drawLoop} from './Draw.js';
 
 class App extends React.Component {
   componentDidMount(){
-    Draw();
+    draw();
   }
   render() {
     return (
