@@ -24,16 +24,19 @@ export class Pen {
 
   // switch to new declaration
   // getFragment(counter, length, points) {
-  getFragment(counter, length, xs, ys) {
-    let xlength = xs.length;
-    let ylength = ys.length;
+  getFragment(counter, length, points) {
+    let pointsLength = points.length;
     let returnArray = [];
-    if counter > xlength{
-        counter = counter % xlength;
+    for (let i = counter; i < counter + length; i++){
+        var index = i;
+        if (returnArray.length < length){
+            if (i >= pointsLength){
+                index = i % pointsLength;
+            }
+            console.log("index: " + index);
+            returnArray.push(points[index]);
+        }
     }
-    for (let i = counter; i < xlength; i++){
-        returnArray[].push;
-    }
-    return [];
+    return returnArray;
   }
 }

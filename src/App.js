@@ -13,11 +13,12 @@ class App extends React.Component {
     super(props);
 
     this.pen = new Pen();
-    let points = [10,20,30,40,50,60,70,80,90,100]
+    let points = [60,70,80,90,100]
       .map(v => new Point(v, v));
 
-    for(let i = 0; i < 10; i++) {
-      this.pen.getFragment(i, 3, points);
+    for(let i = 0; i < 2*points.length; i++) {
+      let a = this.pen.getFragment(i, 3, points);
+      console.log(a);
     }
     this.onStart = e => this.pen.onStart(e);
     this.onMove = e => this.pen.onMove(e);
