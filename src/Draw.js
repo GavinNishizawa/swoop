@@ -1,10 +1,8 @@
 
 
-export function draw(){
+export function draw(xs, ys){
   var canvas = document.getElementById('canvas');
-  let cur = new Point(125, 125);
-  var xs = [125, 170,125];
-  var ys = [125,125,170];
+  let cur = new Point(xs[0], ys[0]);
 
   let subtractX = val => val - cur.x;
   xs = xs.map(subtractX);
@@ -25,7 +23,6 @@ export function drawLoop(ctx, cur, dx, dy){
   for (var i = 0; i < dx.length; i++) {
     cur.x += dx[i];
     cur.y += dy[i];
-    console.log(cur);
     ctx.lineTo(cur.x, cur.y);
   }
   ctx.closePath();
