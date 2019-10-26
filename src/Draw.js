@@ -1,6 +1,6 @@
 
 
-export default function draw(){
+export function draw(){
   var canvas = document.getElementById('canvas');
   var xs = [125,45,125];
   var ys = [125,125,45];
@@ -16,4 +16,14 @@ export default function draw(){
     ctx.closePath();
     ctx.stroke();
   }
+}
+
+export function drawLoop(dx, dy){
+  for (var i = 0; i < dx.length; i++) {
+    ctx.lineTo(dx[i], dy[i]);
+  }
+}
+
+function subtract(dx, dy){
+  asdf
 }

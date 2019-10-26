@@ -2,7 +2,7 @@ import React from 'react';
 // import logo from './logo.svg';
 import './App.css';
 import TestComponent from './TestComponent.bs';
-import Draw from './Draw.js';
+import {draw, drawLoop} from './Draw.js';
 
 class App extends React.Component {
   componentDidMount(){
