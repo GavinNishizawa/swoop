@@ -7,7 +7,7 @@ import logo from './assests/swoop.png'
 
 class App extends React.Component {
   componentDidMount(){
-    Draw();
+    draw();
   }
   render() {
     return (
