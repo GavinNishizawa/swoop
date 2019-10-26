@@ -3,10 +3,9 @@ import { Point } from './Point';
 
 export function draw(points){
   var canvas = document.getElementById('canvas');
-  let cur = points[0];
-  let deltas = [];
   let currentPoints = points.map((p) => new Point(p.x, p.y));
 
+  let deltas = [];
   for(let i = 0; i < points.length; i++) {
     deltas.push( new Point(
       points[i].x - points[0].x,
@@ -32,7 +31,7 @@ export function draw(points){
       }else{
         drawLoop(ctx, newBouncePoints)
       }
-    }, 500);
+    }, 150);
   }
 }
 

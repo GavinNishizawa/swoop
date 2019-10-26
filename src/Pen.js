@@ -10,7 +10,6 @@ export class Pen {
     let y = event.clientY;
     this.xs = [x];
     this.ys = [y];
-    console.log('start')
   }
 
   onMove(event) {
@@ -18,8 +17,8 @@ export class Pen {
     let y =  event.clientY;
     // console.log(`move: ${x},${y}`)
 
-    // this.xs.push(x);
-    // this.ys.push(y);
+    this.xs.push(x);
+    this.ys.push(y);
   }
 
   // switch to new declaration
