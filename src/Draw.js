@@ -1,7 +1,7 @@
 
 import { Point } from './Point';
 
-export function draw(ctx, width, height, points, getFrag){
+export function draw(ctx, width, height, points, getFrag, balls){
 
   let deltas = [];
   for(let i = 0; i < points.length; i++) {
@@ -50,7 +50,7 @@ export function draw(ctx, width, height, points, getFrag){
       clearInterval(interval);
     } else {
       // Draw the points
-      drawLoop(ctx, newBouncePoints);
+      drawLoop(ctx, newBouncePoints, balls);
     }
 
     // If last segment, update points
@@ -103,9 +103,10 @@ export function drawLoop(ctx, points, balls){
 
   // Draw balls
   balls.forEach(ball => {
+  console.log(ball);
     ctx.fillStyle = ball.color;
     ctx.beginPath();
-    ctx.arc(ball.x, ball.y, ball.radius, 0, 2 * Math.PI);
+    ctx.arc(ball.point.x, ball.point.y, ball.radius, 0, 2 * Math.PI);
     ctx.fill();
   })
 

@@ -7,6 +7,7 @@ import { draw } from './Draw.js';
 import { Pen } from './Pen';
 import { Point } from './Point';
 import { Circle } from './Circle'
+import Colors from './Colors';
 
 class App extends React.Component {
   constructor(props) {
@@ -19,11 +20,22 @@ class App extends React.Component {
     //   console.log(this.pen.getFragment(i, 3, points));
     // }
 
+    let balls = [];
     for (var i = 0; i < 20; i++){
         let testcircle1 = Circle.makeCircles(1200, 500);
         console.log(testcircle1);
+        balls.push(testcircle1);
     }
 
+    // let testpoint = new Point(130,130);
+    // let testpointin = new Point(1, 1);
+    // let testpointout = new Point(9, 0);
+    // let testpointon = new Point(7, 3);
+    // let testcircle = new Circle(testpoint, 30, Colors.blue);
+    // console.log(testcircle);
+    // console.log(testcircle.checkPoint(testpointin));
+    // console.log(testcircle.checkPoint(testpointout));
+    // console.log(testcircle.checkPoint(testpointon));
 
     this.onStart = e => this.pen.onStart(e);
     this.onMove = e => this.pen.onMove(e);
@@ -38,7 +50,7 @@ class App extends React.Component {
         for(let i = 0; i < len; i++) {
           pts.push(new Point(xs[i] - canvasPos.x, ys[i] - canvasPos.y));
         }
-        draw(ctx, canvasEl.width, canvasEl.height, pts, this.pen.getFragment);
+        draw(ctx, canvasEl.width, canvasEl.height, pts, this.pen.getFragment, balls);
       }
       // console.log(this.pen);
     };
