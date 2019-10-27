@@ -1,5 +1,6 @@
 {
   "name": "swoop",
+  "homepage" : "http://gavinnishizawa.github.io/swoop",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
