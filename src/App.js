@@ -18,14 +18,12 @@ class App extends React.Component {
     // for(let i = 0; i < 2*points.length; i++) {
     //   console.log(this.pen.getFragment(i, 3, points));
     // }
-    let testpoint = new Point(3,3);
-    let testpointin = new Point(1, 1);
-    let testpointout = new Point(9, 0);
-    let testpointon = new Point(7, 3);
-    let testcircle = new Circle(testpoint, 4);
-    console.log(testcircle.checkPoint(testpointin));
-    console.log(testcircle.checkPoint(testpointout));
-    console.log(testcircle.checkPoint(testpointon));
+
+    for (var i = 0; i < 20; i++){
+        let testcircle1 = Circle.makeCircles(1200, 500);
+        console.log(testcircle1);
+    }
+
 
     this.onStart = e => this.pen.onStart(e);
     this.onMove = e => this.pen.onMove(e);
@@ -64,7 +62,6 @@ class App extends React.Component {
             onPointerMove={this.onMove}
             onPointerUp={this.onStop}
           />
-          <TestComponent />
         </header>
       </div>
     );

@@ -25,5 +25,18 @@ export class Circle {
         }
     }
 
+    static makeCircles(width, height){
+
+        let radius = Math.floor((Math.random() * 50) + 10);
+
+        let pointX = Math.floor(Math.random() * width) - radius;
+        let pointY = Math.floor(Math.random() * height) - radius;
+
+        let circlePoint = new Point(pointX, pointY);
+        let finalCircle = new Circle(circlePoint, radius);
+
+        return finalCircle;
+
+    }
 
 }
