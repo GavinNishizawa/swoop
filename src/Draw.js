@@ -2,7 +2,6 @@
 import { Point } from './Point';
 
 export function draw(ctx, width, height, points, getFrag){
-  // var canvas = document.getElementById('canvas');
 
   let deltas = [];
   for(let i = 0; i < points.length; i++) {
@@ -20,43 +19,47 @@ export function draw(ctx, width, height, points, getFrag){
     for (let i = 0; i < realLength; i++) {
       newPts.push(pts[i+start]);
     }
+    let lastPoint = pts[start + realLength - 1];
     for (let i = 0; i < realLength; i++) {
       newPts.push( new Point(
-        pts[start + realLength - 1].x + deltas[i].x,
-        pts[start + realLength - 1].y + deltas[i].y,
+        lastPoint.x + deltas[i].x,
+        lastPoint.y + deltas[i].y,
       ));
     }
     return newPts;
   }
   currentPoints = updatePoints(currentPoints);
-  // if(canvas.getContext){
-    // var ctx = canvas.getContext('2d');
   let time = 1000;
   let steps = 40;
   let counter = 0;
   let interval = setInterval(() => {
-    // Draw from 0 to length
-    // Each one length/2
-    // update [0,2*length]
-
+    // Draw 1/3 of it at a time
     let segmentLength = realLength/3;
+
+    // What index to start segment at
     let ind = counter % realLength;
-    // let ptStartInd = ind * tenth;
-    // Get points from ptStartInd to ptStartInd + tenth
+
+    // Get the fragment to draw
     let ptsToDraw = getFrag(ind, segmentLength, currentPoints);
+
+    // Bounce points if necessary
     let newBouncePoints = bounce(ptsToDraw, width, height);
+
+    // If outside stop
     if(newBouncePoints.length === 0){
       clearInterval(interval);
     } else {
+      // Draw the points
       drawLoop(ctx, newBouncePoints);
     }
+
+    // If last segment, update points
     if (ind === realLength-1) {
       currentPoints = updatePoints(currentPoints, realLength);
-      // clearInterval(interval);
     }
+    // Move to next segment
     counter++;
   }, time/steps);
-  // }
 }
 
 function reflectPointX(cur, width){
