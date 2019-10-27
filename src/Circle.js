@@ -1,10 +1,12 @@
 
 import {Point} from './Point.js';
+import Colors from './Colors.js';
 
 export class Circle {
-    constructor(point, radius) {
+    constructor(point, radius, color) {
       this.point = point;
       this.radius = radius;
+      this.color = color;
     }
 
     checkPoint(point){
@@ -32,8 +34,11 @@ export class Circle {
         let pointX = Math.floor(Math.random() * width) - radius;
         let pointY = Math.floor(Math.random() * height) - radius;
 
+        let colorNum = Math.floor(Math.random() * 4);
+        let colors = [Colors.blue, Colors.orange, Colors.green, Colors.pink];
+        let color = colors[colorNum];
         let circlePoint = new Point(pointX, pointY);
-        let finalCircle = new Circle(circlePoint, radius);
+        let finalCircle = new Circle(circlePoint, radius, color);
 
         return finalCircle;
 

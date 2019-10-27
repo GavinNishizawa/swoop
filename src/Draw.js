@@ -1,8 +1,7 @@
 
 import { Point } from './Point';
 
-export function draw(ctx, width, height, points, getFrag){
-  // var canvas = document.getElementById('canvas');
+export function draw(ctx, width, height, points, getFrag, balls){
 
   let deltas = [];
   for(let i = 0; i < points.length; i++) {
@@ -20,43 +19,47 @@ export function draw(ctx, width, height, points, getFrag){
     for (let i = 0; i < realLength; i++) {
       newPts.push(pts[i+start]);
     }
+    let lastPoint = pts[start + realLength - 1];
     for (let i = 0; i < realLength; i++) {
       newPts.push( new Point(
-        pts[start + realLength - 1].x + deltas[i].x,
-        pts[start + realLength - 1].y + deltas[i].y,
+        lastPoint.x + deltas[i].x,
+        lastPoint.y + deltas[i].y,
       ));
     }
     return newPts;
   }
   currentPoints = updatePoints(currentPoints);
-  // if(canvas.getContext){
-    // var ctx = canvas.getContext('2d');
   let time = 1000;
   let steps = 40;
   let counter = 0;
   let interval = setInterval(() => {
-    // Draw from 0 to length
-    // Each one length/2
-    // update [0,2*length]
-
+    // Draw 1/3 of it at a time
     let segmentLength = realLength/3;
+
+    // What index to start segment at
     let ind = counter % realLength;
-    // let ptStartInd = ind * tenth;
-    // Get points from ptStartInd to ptStartInd + tenth
+
+    // Get the fragment to draw
     let ptsToDraw = getFrag(ind, segmentLength, currentPoints);
+
+    // Bounce points if necessary
     let newBouncePoints = bounce(ptsToDraw, width, height);
+
+    // If outside stop
     if(newBouncePoints.length === 0){
       clearInterval(interval);
     } else {
-      drawLoop(ctx, newBouncePoints);
+      // Draw the points
+      drawLoop(ctx, newBouncePoints, balls);
     }
+
+    // If last segment, update points
     if (ind === realLength-1) {
       currentPoints = updatePoints(currentPoints, realLength);
-      // clearInterval(interval);
     }
+    // Move to next segment
     counter++;
   }, time/steps);
-  // }
 }
 
 function reflectPointX(cur, width){
@@ -95,13 +98,29 @@ export function bounce(points, width, height){
   return newpointer;
 }
 
-export function drawLoop(ctx, points){
+export function drawLoop(ctx, points, balls){
   ctx.clearRect(0,0,1500,600);
+
+  // Draw line
   ctx.lineWidth = 3;
   ctx.beginPath();
   ctx.moveTo(points[0].x, points[0].y);
   for (var i = 0; i < points.length; i++) {
     ctx.lineTo(points[i].x, points[i].y);
+    balls.forEach((ball, j) => {
+      if (ball.checkPoint(points[i])) {
+        delete balls[j];
+      }
+    })
   }
   ctx.stroke();
+
+  // Draw balls
+  balls.forEach(ball => {
+    ctx.fillStyle = ball.color;
+    ctx.beginPath();
+    ctx.arc(ball.point.x, ball.point.y, ball.radius, 0, 2 * Math.PI);
+    ctx.fill();
+  })
+
 }
