@@ -98,8 +98,18 @@ export function bounce(points, width, height){
   return newpointer;
 }
 
-export function drawLoop(ctx, points){
+export function drawLoop(ctx, points, balls){
   ctx.clearRect(0,0,1500,600);
+
+  // Draw balls
+  balls.forEach(ball => {
+    ctx.fillStyle = ball.color;
+    ctx.beginPath();
+    ctx.arc(ball.x, ball.y, ball.radius, 0, 2 * Math.PI);
+    ctx.fill();
+  })
+
+  // Draw line
   ctx.lineWidth = 3;
   ctx.beginPath();
   ctx.moveTo(points[0].x, points[0].y);
