@@ -1,12 +1,13 @@
 import React from 'react';
 // import logo from './logo.svg';
 import './App.css';
-import TestComponent from './TestComponent.bs';
+// import TestComponent from './TestComponent.bs';
 import logo from './assets/swoop.png';
 import { draw } from './Draw.js';
 import { Pen } from './Pen';
 import { Point } from './Point';
 import { Circle } from './Circle'
+// import Colors from './Colors';
 
 class App extends React.Component {
   constructor(props) {
