@@ -62,8 +62,8 @@ export function draw(ctx, width, height, points, getFrag){
 function reflectPointX(cur, width){
   var xvalue = cur.x % width;
   var quotient = Math.trunc(cur.x/width);
-  var max_quotient = 3
-  
+  var max_quotient = 3;
+
   if(quotient >= max_quotient){
     return null;
   }else if (quotient % 2 === 0) {
