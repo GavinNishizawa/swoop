@@ -1,9 +1,8 @@
 
 import { Point } from './Point';
 
-export function draw(ctx, width, height, points){
+export function draw(ctx, width, height, points, getFrag){
   // var canvas = document.getElementById('canvas');
-  let currentPoints = points.map((p) => new Point(p.x, p.y));
 
   let deltas = [];
   for(let i = 0; i < points.length; i++) {
@@ -13,25 +12,50 @@ export function draw(ctx, width, height, points){
     ));
   }
 
+  let currentPoints = points.map((p) => new Point(p.x, p.y));
+  let realLength = currentPoints.length;
+  let updatePoints = (pts, start=0) => {
+    let newPts = [];
 
+    for (let i = 0; i < realLength; i++) {
+      newPts.push(pts[i+start]);
+    }
+    for (let i = 0; i < realLength; i++) {
+      newPts.push( new Point(
+        pts[start + realLength - 1].x + deltas[i].x,
+        pts[start + realLength - 1].y + deltas[i].y,
+      ));
+    }
+    return newPts;
+  }
+  currentPoints = updatePoints(currentPoints);
   // if(canvas.getContext){
     // var ctx = canvas.getContext('2d');
+  let time = 1000;
+  let steps = 40;
+  let counter = 0;
   let interval = setInterval(() => {
-    for(let i = 0; i < currentPoints.length; i++) {
-      currentPoints[i] = new Point(
-        currentPoints[currentPoints.length - 1].x + deltas[i].x,
-        currentPoints[currentPoints.length - 1].y + deltas[i].y,
-      )
-    }
-    //console.log(currentPoints);
-    let newBouncePoints = bounce(currentPoints, width, height)
-    //console.log(newBouncePoints);
+    // Draw from 0 to length
+    // Each one length/2
+    // update [0,2*length]
+
+    let segmentLength = realLength/3;
+    let ind = counter % realLength;
+    // let ptStartInd = ind * tenth;
+    // Get points from ptStartInd to ptStartInd + tenth
+    let ptsToDraw = getFrag(ind, segmentLength, currentPoints);
+    let newBouncePoints = bounce(ptsToDraw, width, height);
     if(newBouncePoints.length === 0){
       clearInterval(interval);
-    }else{
-      drawLoop(ctx, newBouncePoints)
+    } else {
+      drawLoop(ctx, newBouncePoints);
     }
-  }, 150);
+    if (ind === realLength-1) {
+      currentPoints = updatePoints(currentPoints, realLength);
+      // clearInterval(interval);
+    }
+    counter++;
+  }, time/steps);
   // }
 }
 
@@ -69,6 +93,7 @@ export function bounce(points, width, height){
 
 export function drawLoop(ctx, points){
   ctx.clearRect(0,0,1500,600);
+  ctx.lineWidth = 3;
   ctx.beginPath();
   ctx.moveTo(points[0].x, points[0].y);
   for (var i = 0; i < points.length; i++) {

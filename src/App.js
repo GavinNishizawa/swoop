@@ -13,12 +13,12 @@ class App extends React.Component {
     super(props);
 
     this.pen = new Pen();
-    let points = [60,70,80,90,100]
-      .map(v => new Point(v, v));
+    // let points = [10,20,30,40,50]
+    //   .map(v => new Point(v, v));
+    // for(let i = 0; i < 2*points.length; i++) {
+    //   console.log(this.pen.getFragment(i, 3, points));
+    // }
 
-    for(let i = 0; i < 2*points.length; i++) {
-      this.pen.getFragment(i, 3, points);
-    }
     this.onStart = e => this.pen.onStart(e);
     this.onMove = e => this.pen.onMove(e);
     this.onStop = () => {
@@ -32,7 +32,7 @@ class App extends React.Component {
         for(let i = 0; i < len; i++) {
           pts.push(new Point(xs[i] - canvasPos.x, ys[i] - canvasPos.y));
         }
-        draw(ctx, canvasEl.width, canvasEl.height, pts);
+        draw(ctx, canvasEl.width, canvasEl.height, pts, this.pen.getFragment);
       }
       // console.log(this.pen);
     };
