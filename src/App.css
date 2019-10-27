@@ -6,7 +6,7 @@
     margin-top: 3%;
     height: 10vmin;
     display: block;
-    margin-left: auto;
+    margin-left: 9%;
     margin-right: auto;
 }
 
@@ -14,7 +14,7 @@ canvas {
     background: #F5F5F5;
     width:1200px;
     height:500px;
-    margin-top: 5%;
+    margin-top: 2%;
 }​
 
 
@@ -31,4 +31,21 @@ canvas {
 
 .App-link {
   color: #09d3ac;
+}
+
+.logo {
+    display: flex;
+}
+
+.rules {
+    width: 25%;
+    font-family: 'Roboto', sans-serif;
+    text-align: left;
+    margin-right: 7%;
+    margin-top: 3%;
+    font-size: 120%;
+}
+
+.relaxation {
+    font-weight: 500;
 }

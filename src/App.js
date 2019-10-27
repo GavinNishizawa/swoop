@@ -61,7 +61,12 @@ class App extends React.Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img className="App-logo" src={logo} alt="swoop-logo"/>
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900&display=swap" rel="stylesheet"/>
+          <div className="logo">
+            <img className="App-logo" src={logo} alt="swoop-logo"/>
+            <p className="rules"><span className="relaxation">Promoting relaxation through colors!</span> Rules are simple. Draw a line and see it pop the dots.
+            </p>
+          </div>
           <canvas id='canvas' width="1200" height="600"
             onPointerDown={this.onStart}
             onPointerMove={this.onMove}
