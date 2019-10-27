@@ -6,7 +6,7 @@ import logo from './assets/swoop.png';
 import { draw } from './Draw.js';
 import { Pen } from './Pen';
 import { Point } from './Point';
-
+import { Circle } from './Circle'
 
 class App extends React.Component {
   constructor(props) {
@@ -18,6 +18,14 @@ class App extends React.Component {
     // for(let i = 0; i < 2*points.length; i++) {
     //   console.log(this.pen.getFragment(i, 3, points));
     // }
+    let testpoint = new Point(3,3);
+    let testpointin = new Point(1, 1);
+    let testpointout = new Point(9, 0);
+    let testpointon = new Point(7, 3);
+    let testcircle = new Circle(testpoint, 4);
+    console.log(testcircle.checkPoint(testpointin));
+    console.log(testcircle.checkPoint(testpointout));
+    console.log(testcircle.checkPoint(testpointon));
 
     this.onStart = e => this.pen.onStart(e);
     this.onMove = e => this.pen.onMove(e);
