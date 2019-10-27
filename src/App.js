@@ -13,24 +13,37 @@ class App extends React.Component {
     super(props);
 
     this.pen = new Pen();
-    let points = [60,70,80,90,100]
-      .map(v => new Point(v, v));
+    // let points = [10,20,30,40,50]
+    //   .map(v => new Point(v, v));
+    // for(let i = 0; i < 2*points.length; i++) {
+    //   console.log(this.pen.getFragment(i, 3, points));
+    // }
 
-    for(let i = 0; i < 2*points.length; i++) {
-      let a = this.pen.getFragment(i, 3, points);
-      console.log(a);
-    }
     this.onStart = e => this.pen.onStart(e);
     this.onMove = e => this.pen.onMove(e);
+    this.onStop = () => {
+      let canvasEl = document.getElementById('canvas');
+      if(canvasEl.getContext){
+        let ctx = canvasEl.getContext('2d');
+        let canvasPos = canvasEl.getBoundingClientRect();
+        let {xs, ys} = this.pen;
+        let len = xs.length < ys.length ? xs.length : ys.length;
+        let pts = [];
+        for(let i = 0; i < len; i++) {
+          pts.push(new Point(xs[i] - canvasPos.x, ys[i] - canvasPos.y));
+        }
+        draw(ctx, canvasEl.width, canvasEl.height, pts, this.pen.getFragment);
+      }
+      // console.log(this.pen);
+    };
   }
-
-  componentDidMount(){
-    let points = [
-      new Point(125, 125),
-      new Point(175, 125),
-      new Point(145, 170),
-    ];
-    draw(points);
+  componentDidMount() {
+    // let points = [
+    //   new Point(100, 10),
+    //   new Point(200, 20),
+    //   new Point(300, 30),
+    // ];
+    // draw(points);
   }
 
   render() {
@@ -41,6 +54,7 @@ class App extends React.Component {
           <canvas id='canvas' width="1200" height="600"
             onPointerDown={this.onStart}
             onPointerMove={this.onMove}
+            onPointerUp={this.onStop}
           />
           <TestComponent />
         </header>

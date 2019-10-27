@@ -10,16 +10,15 @@ export class Pen {
     let y = event.clientY;
     this.xs = [x];
     this.ys = [y];
-    console.log('start')
   }
 
   onMove(event) {
     let x =  event.clientX;
     let y =  event.clientY;
-    console.log(`move: ${x},${y}`)
+    // console.log(`move: ${x},${y}`)
 
-    // this.xs.push(x);
-    // this.ys.push(y);
+    this.xs.push(x);
+    this.ys.push(y);
   }
 
   // switch to new declaration
@@ -33,7 +32,7 @@ export class Pen {
             if (i >= pointsLength){
                 index = i % pointsLength;
             }
-            console.log("index: " + index);
+            // console.log("index: " + index);
             returnArray.push(points[index]);
         }
     }
