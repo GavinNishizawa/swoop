@@ -22,9 +22,8 @@ class App extends React.Component {
 
     let balls = [];
     for (var i = 0; i < 20; i++){
-        let testcircle1 = Circle.makeCircles(1200, 500);
-        console.log(testcircle1);
-        balls.push(testcircle1);
+      let testcircle1 = Circle.makeCircles(1200, 500);
+      balls.push(testcircle1);
     }
 
     // let testpoint = new Point(130,130);
@@ -56,19 +55,13 @@ class App extends React.Component {
     };
   }
   componentDidMount() {
-    // let points = [
-    //   new Point(100, 10),
-    //   new Point(200, 20),
-    //   new Point(300, 30),
-    // ];
-    // draw(points);
   }
 
   render() {
     return (
       <div className="App">
         <header className="App-header">
-        <img className="App-logo" src={logo} alt="swoop-logo"/>
+          <img className="App-logo" src={logo} alt="swoop-logo"/>
           <canvas id='canvas' width="1200" height="600"
             onPointerDown={this.onStart}
             onPointerMove={this.onMove}

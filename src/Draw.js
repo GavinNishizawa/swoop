@@ -101,21 +101,26 @@ export function bounce(points, width, height){
 export function drawLoop(ctx, points, balls){
   ctx.clearRect(0,0,1500,600);
 
-  // Draw balls
-  balls.forEach(ball => {
-  console.log(ball);
-    ctx.fillStyle = ball.color;
-    ctx.beginPath();
-    ctx.arc(ball.point.x, ball.point.y, ball.radius, 0, 2 * Math.PI);
-    ctx.fill();
-  })
-
   // Draw line
   ctx.lineWidth = 3;
   ctx.beginPath();
   ctx.moveTo(points[0].x, points[0].y);
   for (var i = 0; i < points.length; i++) {
     ctx.lineTo(points[i].x, points[i].y);
+    balls.forEach((ball, j) => {
+      if (ball.checkPoint(points[i])) {
+        delete balls[j];
+      }
+    })
   }
   ctx.stroke();
+
+  // Draw balls
+  balls.forEach(ball => {
+    ctx.fillStyle = ball.color;
+    ctx.beginPath();
+    ctx.arc(ball.point.x, ball.point.y, ball.radius, 0, 2 * Math.PI);
+    ctx.fill();
+  })
+
 }
