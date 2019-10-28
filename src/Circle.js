@@ -29,10 +29,10 @@ export class Circle {
 
     static makeCircles(width, height){
 
-        let radius = Math.floor((Math.random() * 50) + 10);
+        let radius = Math.floor((Math.random() * height/12) + 10);
 
-        let pointX = Math.floor(Math.random() * width) - radius;
-        let pointY = Math.floor(Math.random() * height) - radius;
+        let pointX = Math.floor(Math.random() * (width - 2*radius) + radius);
+        let pointY = Math.floor(Math.random() * (height - 2*radius) + radius);
 
         let colorNum = Math.floor(Math.random() * 4);
         let colors = [Colors.blue, Colors.orange, Colors.green, Colors.pink];

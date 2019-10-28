@@ -19,12 +19,11 @@ class App extends React.Component {
     // for(let i = 0; i < 2*points.length; i++) {
     //   console.log(this.pen.getFragment(i, 3, points));
     // }
+    this.width = 1200;
+    this.height = 600;
 
-    let balls = [];
-    for (var i = 0; i < 20; i++){
-      let testcircle1 = Circle.makeCircles(1200, 500);
-      balls.push(testcircle1);
-    }
+    this.balls = [];
+    this.interval = null;
 
     // let testpoint = new Point(130,130);
     // let testpointin = new Point(1, 1);
@@ -36,9 +35,20 @@ class App extends React.Component {
     // console.log(testcircle.checkPoint(testpointout));
     // console.log(testcircle.checkPoint(testpointon));
 
-    this.onStart = e => this.pen.onStart(e);
-    this.onMove = e => this.pen.onMove(e);
+    this.onStart = e => {
+      e.preventDefault();
+      this.pen.onStart(e);
+    };
+    this.onMove = e => {
+      e.preventDefault();
+      this.pen.onMove(e);
+    };
     this.onStop = () => {
+      if (this.interval) {
+        // Clear old interval
+        clearInterval(this.interval);
+        this.interval = null;
+      }
       let canvasEl = document.getElementById('canvas');
       if(canvasEl.getContext){
         let ctx = canvasEl.getContext('2d');
@@ -46,15 +56,41 @@ class App extends React.Component {
         let {xs, ys} = this.pen;
         let len = xs.length < ys.length ? xs.length : ys.length;
         let pts = [];
+        let fixX = x => (x - canvasPos.x) * this.width / canvasPos.width;
+        let fixY = y => (y - canvasPos.y) * this.height / canvasPos.height;
         for(let i = 0; i < len; i++) {
-          pts.push(new Point(xs[i] - canvasPos.x, ys[i] - canvasPos.y));
+          pts.push(new Point(fixX(xs[i]), fixY(ys[i])));
         }
-        draw(ctx, canvasEl.width, canvasEl.height, pts, this.pen.getFragment, balls);
+        this.interval = draw(
+          ctx,
+          canvasEl.width,
+          canvasEl.height,
+          pts,
+          this.pen.getFragment,
+          this.balls
+        );
       }
       // console.log(this.pen);
     };
+
+    this.makeCircles = () => {
+      this.balls = [];
+      for (var i = 0; i < 20; i++){
+        let testcircle1 = Circle.makeCircles(this.width, this.height);
+        this.balls.push(testcircle1);
+      }
+    }
+    this.reset = () => {
+      if (this.interval) {
+        // Clear old interval
+        clearInterval(this.interval);
+        this.interval = null;
+      }
+      this.makeCircles();
+    }
   }
   componentDidMount() {
+    this.makeCircles();
   }
 
   render() {
@@ -64,10 +100,16 @@ class App extends React.Component {
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900&display=swap" rel="stylesheet"/>
           <div className="logo">
             <img className="App-logo" src={logo} alt="swoop-logo"/>
-            <p className="rules"><span className="relaxation">Promoting relaxation through colors!</span> Rules are simple. Draw a line and see it pop the dots.
+            <p className="rules">
+              <span className="relaxation">
+                Promoting relaxation through colors!
+              </span>
+              <br />
+              Rules are simple. Draw a line and see it pop the dots.
             </p>
           </div>
-          <canvas id='canvas' width="1200" height="600"
+          <button type="button" onClick={this.reset}>Reset</button>
+          <canvas id='canvas' width={this.width} height={this.height}
             onPointerDown={this.onStart}
             onPointerMove={this.onMove}
             onPointerUp={this.onStop}

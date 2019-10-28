@@ -12,8 +12,8 @@
 
 canvas {
     background: #F5F5F5;
-    width:1200px;
-    height:500px;
+    width: 100%;
+    height: calc(100% - 10vmin);
     margin-top: 2%;
 }​
 
@@ -44,6 +44,16 @@ canvas {
     margin-right: 7%;
     margin-top: 3%;
     font-size: 120%;
+}
+
+@media screen and (max-width: 768px) {
+  .rules {
+    display: block;
+    width: auto;
+    margin-left: 20px;
+    margin-right: 10px;
+    font-size: 120%;
+  }
 }
 
 .relaxation {

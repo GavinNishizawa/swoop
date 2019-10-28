@@ -60,6 +60,8 @@ export function draw(ctx, width, height, points, getFrag, balls){
     // Move to next segment
     counter++;
   }, time/steps);
+
+  return interval;
 }
 
 function reflectPointX(cur, width){
@@ -106,10 +108,11 @@ export function drawLoop(ctx, points, balls){
   ctx.beginPath();
   ctx.moveTo(points[0].x, points[0].y);
   for (var i = 0; i < points.length; i++) {
-    ctx.lineTo(points[i].x, points[i].y);
+    let p = points[i];
+    ctx.lineTo(p.x, p.y);
     if (balls) {
       balls.forEach((ball, j) => {
-        if (ball.checkPoint(points[i])) {
+        if (ball.checkPoint(p)) {
           delete balls[j];
         }
       })
