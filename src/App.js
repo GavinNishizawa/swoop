@@ -91,6 +91,8 @@ class App extends React.Component {
   }
   componentDidMount() {
     this.makeCircles();
+    // Prevent scrolling on mobile when trying to draw
+    document.addEventListener("touchmove", e => e.preventDefault(), { passive: false });
   }
 
   render() {
